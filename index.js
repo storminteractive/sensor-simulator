@@ -47,7 +47,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 app.get('/download/:fileName', (req, res) => {
   let fileName = req.params.fileName;
   // Remove any non-alphanumeric characters except for periods, hyphens, and underscores
-  fileName = fileName.replace(/[^a-z\ A-Z0-9-_.]/g, '');
+  fileName = fileName.replace(/[^a-z\ A-Z0-9-_.\(\)]/g, '');
   // Ensure that the file name is not too long
   fileName = fileName.slice(0, 100);
   if(!fileName) { res.sendStatus(404); return; }
@@ -58,7 +58,7 @@ app.get('/download/:fileName', (req, res) => {
 app.post('/delete', (req, res) => {
   let fileName = req.body.fileName;
   // Remove any non-alphanumeric characters except for periods, hyphens, and underscores
-  fileName = fileName.replace(/[^a-z\ A-Z0-9-_.]/g, '');
+  fileName = fileName.replace(/[^a-z\ A-Z0-9-_.\(\)]/g, '');
   // Ensure that the file name is not too long
   fileName = fileName.slice(0, 100);
 
