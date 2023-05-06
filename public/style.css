@@ -1,0 +1,49 @@
+.progress {
+    height: 30px;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    font-size: 1rem;
+    line-height: 30px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .status-yellow {
+    background-color: yellow;
+  }
+  
+  .status-green {
+    background-color: green;
+  }
+  
+  .status-red {
+    background-color: red;
+  }
+
+  .status-grey {
+    background-color: grey;
+  }
+
+  .status-led {
+    margin-right: 5px; width: 8px; height: 8px; border-radius:4px; display: inline-block;
+  }
+
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-header {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+  }
+
+  .card-footer{
+    background-color: black;
+    color: white;
+    font-size: small;
+  }
