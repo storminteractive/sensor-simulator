@@ -33,6 +33,10 @@ formUploadFile = () => {
         success: function (response) {
             console.log(`File successfully uploaded: `,response);
             window.location.reload();
+        }, 
+        error: function (err) {
+            console.log(`Error uploading file:`,err);
+            $('#speedDiv').text(`Error: ${err.status}`);
         }
     });
 }
