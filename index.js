@@ -171,3 +171,8 @@ app.get('/api/filter/:column/:value', (req, res) => {
       res.json(filteredRecords)
     })
 })
+
+// SSL endpoint 
+app.get('/.well-known/acme-challenge/v5JzGfvcMbUZd4A7nlgJluuqyGp4i0cGKQGzihApRLQ',(req,res)=>{
+  res.send('v5JzGfvcMbUZd4A7nlgJluuqyGp4i0cGKQGzihApRLQ.d_S4hUyNOH0Q9614ToIqX8Lj3a_n7KcnULVixVBh0zc');
+})

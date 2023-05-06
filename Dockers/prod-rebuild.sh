@@ -1,14 +1,14 @@
 #!/bin/bash
 git --git-dir $(pwd)/../.git --work-tree $(pwd)/../ pull
 
-CONTAINER_NAME=sensor-simmulator
-IMAGE_NAME=storminteractive/sensor-simmulator:1.0
+CONTAINER_NAME=sensor-simulator
+IMAGE_NAME=storminteractive/sensor-simulator:1.0
 
 #export $(cat ../.env | xargs)
 if [ -z "$VIRTUAL_HOST" ]
 then
-    echo "No VIRTUAL_HOST set, using default sensorsimmulator.com"
-    VIRTUAL_HOST=sensorsimmulator.com
+    echo "No VIRTUAL_HOST set, using default sensorsimulator.com"
+    VIRTUAL_HOST=sensorsimulator.com
 else
     echo "Using VIRTUAL_HOST from .env - $VIRTUAL_HOST"
 fi
