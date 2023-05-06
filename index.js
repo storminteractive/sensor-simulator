@@ -44,6 +44,17 @@ app.post('/upload', upload.single('file'), (req, res) => {
   res.sendStatus(200);
 });
 
+app.get('/download/:fileName', (req, res) => {
+  let fileName = req.params.fileName;
+  // Remove any non-alphanumeric characters except for periods, hyphens, and underscores
+  fileName = fileName.replace(/[^a-z\ A-Z0-9-_.]/g, '');
+  // Ensure that the file name is not too long
+  fileName = fileName.slice(0, 100);
+  if(!fileName) { res.sendStatus(404); return; }
+  if(!fs.existsSync(`uploads/${fileName}`)) { res.sendStatus(404); return; }
+  res.download(`uploads/${fileName}`);
+});
+
 app.post('/delete', (req, res) => {
   let fileName = req.body.fileName;
   // Remove any non-alphanumeric characters except for periods, hyphens, and underscores
@@ -118,6 +129,12 @@ app.get('/api/:id', (req, res) => {
   fs.createReadStream('uploads/'+currentlyExposedFile)
     .pipe(csv())
     .on('data', (data) => {
+      
+      if(!data.timestamp) { 
+        res.status(404).send();
+        return; 
+      }
+
       if (data.timestamp === req.params.id) {
         res.json(data)
         recordFound = true
@@ -134,11 +151,18 @@ app.get('/api/:id', (req, res) => {
 app.get('/api/filter/:column/:value', (req, res) => {
   if(!currentlyExposedFile) { res.status(404).send(); return; }
   const { column, value } = req.params;
+  console.log("app.get -> column, value:", column, value);
   const filteredRecords = []
 
   fs.createReadStream('uploads/'+currentlyExposedFile)
     .pipe(csv())
     .on('data', (data) => {
+      
+      if(!data[column]) { 
+        res.status(404).send();
+        return; 
+      }
+
       if ((data[column]).trim() === value) {
         filteredRecords.push(data)
       }

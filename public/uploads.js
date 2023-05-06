@@ -72,7 +72,7 @@ const addFile = (fileName) => {
             <div class="d-flex align-items-center file-desc">
                 <div class="status-led status-grey"></div>
                 <div class="drag-handle" style="margin-right: 10px; cursor: grab;">&#9776;</div>
-                <div class="flex-grow-1 file-text">${fileName}</div>
+                <div class="flex-grow-1 file-text"><a href="/download/${fileName}" style="text-decoration: none;">${fileName}</a></div>
                 <button class="btn btn-primary expose-button" style="margin-right: 5px;" onClick="exposeFileName('${fileName}');">Expose</button>
                 <button class="btn btn-danger delete-button" onClick="deleteFile('${fileName}');">Delete</button>
             </div>
