@@ -153,14 +153,21 @@ app.get('/api/filter/:column/:value', (req, res) => {
   const { column, value } = req.params;
   console.log("app.get -> column, value:", column, value);
   const filteredRecords = []
+  let responseSent = false; // flag to track whether a response has been sent
+
+  let columnExists = false; // check if requested column exists in the CSV file
 
   fs.createReadStream('uploads/'+currentlyExposedFile)
     .pipe(csv())
     .on('data', (data) => {
       
-      if(!data[column]) { 
-        res.status(404).send();
-        return; 
+      if(!columnExists) { // if the column is not found yet, check if it exists
+        if(!data[column]) {
+          res.status(404).send();
+          responseSent = true; // mark that a response has been sent
+          return;
+        }
+        columnExists = true;
       }
 
       if ((data[column]).trim() === value) {
@@ -168,7 +175,9 @@ app.get('/api/filter/:column/:value', (req, res) => {
       }
     })
     .on('end', () => {
-      res.json(filteredRecords)
+      if(!responseSent) { // only send response if one hasn't been sent already
+        res.json(filteredRecords)
+      }
     })
 })
 
